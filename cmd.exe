@@ -1,0 +1,3 @@
+cd "E:\4-1 Internship report\driver-drowsiness-detection-master\driver-drowsiness-detection-master"
+pnpm install
+pnpm dev
