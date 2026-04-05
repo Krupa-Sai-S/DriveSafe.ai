@@ -36,7 +36,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "DriveSafe Vision AI | Premium Driver Monitoring",
     description: "Advanced AI-powered driver monitoring system for real-time fatigue and distraction detection.",
-    url: "https://drive-safeai.vercel.app",
+    url: "https://drivesafevisionai.vercel.app/",
     siteName: "DriveSafe Vision AI",
     images: [
       {
