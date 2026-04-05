@@ -44,7 +44,7 @@ export function AboutContent() {
               <span className="text-muted-foreground">Advanced AI Safety Technology</span>
             </div>
             <h1 className="mb-4 text-4xl font-bold tracking-tight text-balance md:text-5xl">
-              How Driver Safety AI Works
+              How DriveSafe Vision AI Works
             </h1>
             <p className="text-lg text-muted-foreground text-pretty leading-relaxed">
               Learn about the technology, algorithms, and safety measures behind our drowsiness detection system

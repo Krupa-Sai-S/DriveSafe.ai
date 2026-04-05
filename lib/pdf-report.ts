@@ -1,5 +1,5 @@
 /* ============================================================
-   DriveSafe AI — PDF Report Generator using jsPDF
+   DriveSafe Vision AI — PDF Report Generator using jsPDF
    Generates a proper downloadable PDF file
    ============================================================ */
 
@@ -127,7 +127,7 @@ export function generateAndDownloadPDF(allSessions: any[]): void {
   doc.setFontSize(17)
   doc.setFont("helvetica", "bold")
   doc.setTextColor(255, 255, 255)
-  doc.text("DriveSafe AI", M + 17, 18)
+  doc.text("DriveSafe Vision AI", M + 17, 18)
 
   doc.setFontSize(8)
   doc.setFont("helvetica", "normal")
@@ -345,7 +345,7 @@ export function generateAndDownloadPDF(allSessions: any[]): void {
   // ╚═══════════════════════════════════╝
   if (y + 50 > PH - 20) { doc.addPage(); y = M }
   const recs = [
-    "Use DriveSafe AI monitoring before every long trip to assess alertness.",
+    "Use DriveSafe Vision AI monitoring before every long trip to assess alertness.",
     "If a critical alert fires, pull over safely and rest for at least 20 minutes.",
     "Stay hydrated — dehydration significantly increases driver fatigue.",
     "Ensure 7–8 hours of sleep before any long journey.",
@@ -379,7 +379,7 @@ export function generateAndDownloadPDF(allSessions: any[]): void {
     doc.setFont("helvetica", "normal")
     doc.setTextColor(...C.light)
     doc.text(`Page ${p} of ${pages}`, M, footY)
-    doc.text("DriveSafe AI  |  Powered by MediaPipe  |  For informational purposes only.", PW / 2, footY, { align: "center" })
+    doc.text("DriveSafe Vision AI  |  Powered by MediaPipe  |  For informational purposes only.", PW / 2, footY, { align: "center" })
     doc.text(now.toLocaleString(), PW - M, footY, { align: "right" })
   }
 

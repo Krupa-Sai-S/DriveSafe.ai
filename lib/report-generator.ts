@@ -1,5 +1,5 @@
 /* ============================================================
-   Driver Safety AI — HTML Report Generator
+   DriveSafe Vision AI — HTML Report Generator
    Generates a self-contained, downloadable HTML report
    ============================================================ */
 
@@ -52,7 +52,7 @@ export function generateTodayReport(allSessions: any[]): string {
 
   // Recommendations
   const recs: string[] = [
-    "✅ Use Driver Safety AI before every long trip to monitor alertness levels.",
+    "✅ Use DriveSafe Vision AI before every long trip to monitor alertness levels.",
     "🛑 If a critical alert fires, pull over safely and rest for at least 20 minutes.",
     "💧 Stay hydrated — dehydration is a leading cause of driver fatigue.",
     "☕ Caffeine can help short-term, but is not a substitute for proper sleep.",
@@ -148,7 +148,7 @@ export function generateTodayReport(allSessions: any[]): string {
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
-<title>Driver Safety Report — ${now.toLocaleDateString()}</title>
+<title>DriveSafe Vision AI Report — ${now.toLocaleDateString()}</title>
 <style>
   *{box-sizing:border-box;margin:0;padding:0;}
   body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','Inter',sans-serif;background:#050b18;color:#e2e8f0;min-height:100vh;}
@@ -165,7 +165,7 @@ export function generateTodayReport(allSessions: any[]): string {
       <div style="display:flex;align-items:center;gap:12px;margin-bottom:14px;">
         <div style="width:44px;height:44px;background:linear-gradient(135deg,#1d4ed8,#3b82f6);border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:22px;">🛡️</div>
         <div>
-          <div style="font-size:20px;font-weight:800;color:#f1f5f9;">DriveSafe AI</div>
+          <div style="font-size:20px;font-weight:800;color:#f1f5f9;">DriveSafe Vision AI</div>
           <div style="font-size:12px;color:#60a5fa;letter-spacing:0.05em;">Daily Safety Report</div>
         </div>
       </div>
@@ -230,7 +230,7 @@ export function generateTodayReport(allSessions: any[]): string {
 
   <!-- FOOTER -->
   <div style="text-align:center;padding-top:24px;border-top:1px solid rgba(96,165,250,0.1);">
-    <div style="font-size:13px;color:#334155;">Driver Safety AI &nbsp;|&nbsp; Powered by MediaPipe &nbsp;|&nbsp; Report generated ${now.toLocaleString()}</div>
+    <div style="font-size:13px;color:#334155;">DriveSafe Vision AI &nbsp;|&nbsp; Powered by MediaPipe &nbsp;|&nbsp; Report generated ${now.toLocaleString()}</div>
     <div style="font-size:11px;color:#1e293b;margin-top:4px;">For informational purposes only. Not a substitute for medical advice.</div>
   </div>
 
@@ -248,7 +248,7 @@ export function triggerReportDownload(allSessions: any[]): void {
     newTab.document.open();
     newTab.document.write(html);
     newTab.document.close();
-    newTab.document.title = `DriveSafe AI — Report ${new Date().toLocaleDateString()}`;
+    newTab.document.title = `DriveSafe Vision AI — Report ${new Date().toLocaleDateString()}`;
   }
 
   // 2. Also trigger a file download so they can save it

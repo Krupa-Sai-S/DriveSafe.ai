@@ -17,8 +17,8 @@ const _geistMono = Geist_Mono({ subsets: ["latin"] })
 
 export const metadata: Metadata = {
   title: {
-    default: "DriveSafe AI",
-    template: "DriveSafe AI | %s",
+    default: "DriveSafe Vision AI",
+    template: "DriveSafe Vision AI | %s",
   },
   description:
     "Advanced AI-powered driver monitoring system using MediaPipe for real-time fatigue, distraction, and health monitoring safety alerts",
@@ -34,16 +34,16 @@ export const metadata: Metadata = {
     shortcut: ["/favicon.ico"],
   },
   openGraph: {
-    title: "DriveSafe AI | Premium Driver Monitoring",
+    title: "DriveSafe Vision AI | Premium Driver Monitoring",
     description: "Advanced AI-powered driver monitoring system for real-time fatigue and distraction detection.",
     url: "https://drive-safeai.vercel.app",
-    siteName: "DriveSafe AI",
+    siteName: "DriveSafe Vision AI",
     images: [
       {
         url: "/opengraph-image.png",
         width: 1200,
         height: 630,
-        alt: "DriveSafe AI Shield Logo",
+        alt: "DriveSafe Vision AI Shield Logo",
       },
     ],
     locale: "en_US",
@@ -51,7 +51,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "DriveSafe AI",
+    title: "DriveSafe Vision AI",
     description: "Safety monitoring for drivers using real-time AI and facial landmarks.",
     images: ["/opengraph-image.png"],
   },
