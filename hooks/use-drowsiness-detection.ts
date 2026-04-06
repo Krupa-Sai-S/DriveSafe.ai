@@ -10,6 +10,17 @@ import { ObjectAnalyzer } from "@/lib/analysis/object-analyzer"
 import { OcclusionAnalyzer } from "@/lib/analysis/occlusion-analyzer"
 import { CardiacAnalyzer } from "@/lib/analysis/cardiac-analyzer"
 
+// Suppress the annoying MediaPipe XNNPACK INFO message that triggers Next.js error overlays
+if (typeof window !== "undefined") {
+  const originalConsoleError = console.error;
+  console.error = (...args) => {
+    if (args.length > 0 && typeof args[0] === 'string' && args[0].includes('TensorFlow Lite XNNPACK delegate')) {
+      return;
+    }
+    originalConsoleError(...args);
+  };
+}
+
 interface DetectionData {
   eyeClosureTime: number
   yawnCount: number

@@ -1,24 +1,42 @@
-import { Activity, ShieldCheck } from "lucide-react"
+import { ShieldCheck, Activity, Cpu } from "lucide-react"
 
 export function Footer() {
   return (
-    <footer className="w-full border-t border-blue-400/10 bg-background/80 backdrop-blur-md py-8 mt-auto">
-      <div className="container mx-auto flex max-w-7xl flex-col items-center justify-between gap-6 px-4 md:flex-row md:px-6 lg:px-8">
-        <div className="flex items-center gap-2.5 font-semibold">
-          <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-gradient-to-br from-blue-600 to-indigo-600 shadow-sm">
-            <ShieldCheck className="h-4 w-4 text-white" />
+    <footer className="w-full border-t border-primary/10 bg-background/40 backdrop-blur-3xl py-12">
+      <div className="container mx-auto max-w-7xl px-6 lg:px-12">
+        <div className="flex flex-col md:flex-row items-center justify-between gap-10">
+          
+          {/* Logo & Vision */}
+          <div className="flex flex-col items-center md:items-start gap-4">
+            <div className="flex items-center gap-3">
+              <div className="w-10 h-10 rounded-xl bg-primary/10 border border-primary/20 flex items-center justify-center">
+                <ShieldCheck className="h-5 w-5 text-primary" />
+              </div>
+              <span className="text-xl font-black tracking-tighter aura-gradient-text uppercase">AURA VISION AI</span>
+            </div>
+            <p className="text-[10px] tracking-[0.2em] font-mono text-muted-foreground/60 max-w-[200px] text-center md:text-left leading-relaxed">
+              ULTRA-PRECISION NEURAL DRIVER MONITORING SYSTEM.
+            </p>
           </div>
-          <span className="text-sm text-foreground/80">DriveSafe <span className="text-blue-400">Vision AI</span></span>
-        </div>
-        <div className="flex flex-col items-center gap-1 text-center">
-          <p className="text-xs text-muted-foreground">&copy; {new Date().getFullYear()} DriveSafe Vision AI. All rights reserved.</p>
-          <div className="flex items-center gap-1.5 text-xs text-muted-foreground/60">
-            <Activity className="h-3 w-3 text-blue-400/60" />
-            <span>Powered by MediaPipe &amp; Next.js</span>
+
+          {/* Center Info */}
+          <div className="flex flex-col items-center gap-3">
+            <div className="flex items-center gap-6 opacity-30">
+              <Cpu className="h-5 w-5" />
+              <Activity className="h-5 w-5" />
+              <ShieldCheck className="h-5 w-5" />
+            </div>
+            <p className="text-[10px] font-mono text-muted-foreground uppercase opacity-40">
+              &copy; {new Date().getFullYear()} Aura Vision AI Protocol.
+            </p>
           </div>
-        </div>
-        <div className="flex items-center gap-2 text-xs text-muted-foreground/70">
-          <span>Built with</span><span className="text-blue-400">♥</span><span>for safer roads</span>
+
+          {/* Ownership */}
+          <div className="flex flex-col items-center md:items-end gap-2">
+            <span className="text-[9px] font-mono tracking-widest text-muted-foreground/50 uppercase">Project Ownership:</span>
+            <span className="text-sm font-black tracking-widest text-primary uppercase">VISIONARY DEVELOPER</span>
+          </div>
+          
         </div>
       </div>
     </footer>

@@ -1,15 +1,13 @@
-"use client"
+﻿"use client"
 
 import { useState, useRef, useEffect } from "react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Alert, AlertDescription } from "@/components/ui/alert"
-import { Play, Square, AlertTriangle, Activity, Clock, TrendingUp, Volume2, VolumeX, Video, VideoOff, Loader2, Phone, CheckCircle } from "lucide-react"
+import { Play, Square, AlertTriangle, Activity, Clock, TrendingUp, Volume2, VolumeX, Video, VideoOff, Loader2 } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { useDrowsinessDetection } from "@/hooks/use-drowsiness-detection"
 import { SessionSummaryModal } from "@/components/session-summary-modal"
-import { useAuraAudio } from "@/hooks/use-aura-audio"
-import { motion, AnimatePresence } from "framer-motion"
 
 export function DetectionDashboard() {
   const videoRef = useRef<HTMLVideoElement>(null)
@@ -19,15 +17,6 @@ export function DetectionDashboard() {
   const [elapsedTime, setElapsedTime] = useState(0)
   const [showSummary, setShowSummary] = useState(false)
   const [lastSessionData, setLastSessionData] = useState<any>(null)
-  
-  const [emergencyContact, setEmergencyContact] = useState("")
-  const [sosActive, setSosActive] = useState(false)
-  const [sosCountdown, setSosCountdown] = useState(10)
-  const [highlightSos, setHighlightSos] = useState(false)
-  const sosInputRef = useRef<HTMLInputElement>(null)
-  const sosDismissedAtRef = useRef<number>(0)
-
-  const { playEngage, playAbort, playAlert } = useAuraAudio()
 
   const timelineRef = useRef<Array<{ time: string; score: number; events: any[] }>>([])
   const riskScoreRef = useRef(0)
@@ -39,34 +28,6 @@ export function DetectionDashboard() {
     useDrowsinessDetection(videoRef, canvasRef, isAudioEnabled)
 
   useEffect(() => { riskScoreRef.current = riskScore }, [riskScore])
-  
-  useEffect(() => {
-    if (shouldAlert && isAudioEnabled) {
-      playAlert()
-      const beepInterval = setInterval(playAlert, 1000)
-      return () => clearInterval(beepInterval)
-    }
-  }, [shouldAlert, isAudioEnabled, playAlert])
-
-  useEffect(() => {
-    if (shouldAlert && riskLevel === "critical" && emergencyContact && !sosActive) {
-      if (Date.now() - sosDismissedAtRef.current > 30000) {
-        setSosActive(true)
-        setSosCountdown(10)
-      }
-    }
-  }, [shouldAlert, riskLevel, emergencyContact, sosActive])
-
-  useEffect(() => {
-    let timer: NodeJS.Timeout
-    if (sosActive && sosCountdown > 0) {
-      timer = setInterval(() => {
-        setSosCountdown(prev => prev - 1)
-      }, 1000)
-    }
-    return () => { if (timer) clearInterval(timer) }
-  }, [sosActive, sosCountdown])
-
   const detectionDataRef = useRef(detectionData)
   useEffect(() => { detectionDataRef.current = detectionData }, [detectionData])
 
@@ -100,19 +61,7 @@ export function DetectionDashboard() {
   const getCameraGlow = (l: string) => isDetecting ? (l === "safe" ? "glow-green" : l === "warning" ? "glow-yellow" : l === "critical" ? "glow-red" : "") : ""
   const getBarClass = (v: number) => v >= 70 ? "metric-bar-danger" : v >= 40 ? "metric-bar-warning" : "metric-bar-safe"
 
-  const handleStart = () => {
-    if (!emergencyContact.trim()) {
-      setHighlightSos(true)
-      sosInputRef.current?.focus()
-      setTimeout(() => setHighlightSos(false), 2000)
-      return
-    }
-    if (isAudioEnabled) playEngage();
-    startDetection();
-  }
-
   const handleStop = () => {
-    if (isAudioEnabled) playAbort()
     const data = { id: Date.now().toString(), date: new Date().toLocaleDateString(), time: new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }), duration: sessionDuration || 0, maxRiskScore, eyeClosureEvents: Math.floor(detectionData.eyeClosureTime * 2), yawnCount: detectionData.yawnCount, alertsTriggered: detectionData.alertCount, maxRiskLevel: riskLevel, blinkFrequency: detectionData.blinkFrequency, timeline: timelineRef.current }
     try { const existing = localStorage.getItem("drowsiness-sessions"); const sessions = existing ? JSON.parse(existing) : []; sessions.unshift(data); localStorage.setItem("drowsiness-sessions", JSON.stringify(sessions)) } catch (e) { console.error(e) }
     setLastSessionData(data); stopDetection()
@@ -187,7 +136,7 @@ export function DetectionDashboard() {
                 </div>
 
                 <div className="mt-4 flex flex-wrap gap-3">
-                  <Button onClick={isDetecting ? handleStop : handleStart} size="lg" disabled={isLoading && !isDetecting}
+                  <Button onClick={isDetecting ? handleStop : startDetection} size="lg" disabled={isLoading && !isDetecting}
                     className={cn("gap-2 cursor-pointer text-white border-none shadow-lg transition-all duration-300 hover:scale-105",
                       isDetecting ? "bg-gradient-to-r from-red-600 to-red-500 hover:from-red-700 hover:to-red-600 shadow-red-500/30"
                         : "bg-gradient-to-r from-blue-600 to-blue-500 hover:from-blue-700 hover:to-blue-600 shadow-blue-500/30")}>
@@ -197,12 +146,6 @@ export function DetectionDashboard() {
                     className={cn("gap-2 cursor-pointer border-border/50 transition-all duration-300", isAudioEnabled ? "hover:border-blue-400/40 hover:text-blue-400" : "text-muted-foreground")}>
                     {isAudioEnabled ? <><Volume2 className="h-4 w-4" />Audio On</> : <><VolumeX className="h-4 w-4" />Audio Off</>}
                   </Button>
-                  <div className={cn("flex items-center gap-2 h-11 border rounded-md px-3 bg-background flex-1 min-w-[200px] transition-all duration-300", 
-                    highlightSos ? "border-red-500 ring-4 ring-red-500/30 shadow-[0_0_15px_rgba(239,68,68,0.4)]" : "border-border/50 focus-within:border-blue-400/50 focus-within:ring-1 focus-within:ring-blue-400/30")}>
-                    <Phone className={cn("h-4 w-4 transition-colors", highlightSos ? "text-red-500" : "text-muted-foreground")}/>
-                    <input ref={sosInputRef} type="text" placeholder={highlightSos ? "REQUIRED: SOS Contact..." : "SOS Contact No..."} value={emergencyContact} onChange={e => setEmergencyContact(e.target.value)} 
-                      className={cn("bg-transparent text-sm w-full outline-none text-foreground font-mono transition-colors", highlightSos ? "placeholder:text-red-400/70" : "placeholder:text-muted-foreground/50")} />
-                  </div>
                 </div>
               </CardContent>
             </Card>
@@ -235,21 +178,6 @@ export function DetectionDashboard() {
                   </div>
                 </div>
 
-                {/* Live Waveform Visualizer */}
-                <div className="flex items-end justify-between h-10 gap-0.5 px-2 pb-2 border-b border-border/20">
-                  {Array.from({ length: 32 }).map((_, i) => {
-                    const activity = isDetecting ? Math.random() * (riskScore / 100) + ((detectionData.eyeAspectRatio || 0) * 1.5) : 0.05
-                    return (
-                      <motion.div key={i}
-                        animate={{ height: isDetecting ? `${Math.max(10, Math.min(100, activity * 100))}%` : "10%" }}
-                        transition={{ type: "spring", bounce: 0.5, duration: 0.4, delay: i * 0.015 }}
-                        className={cn("w-full rounded-t-sm", 
-                          riskLevel === "critical" ? "bg-red-400" : riskLevel === "warning" ? "bg-amber-400" : "bg-blue-400")}
-                      />
-                    )
-                  })}
-                </div>
-
                 {/* Timer */}
                 <div className="rounded-xl bg-muted/40 border border-border/30 px-4 py-3 flex items-center justify-between">
                   <div className="flex items-center gap-2 text-sm text-muted-foreground"><Clock className="h-4 w-4" /><span>Session Time</span></div>
@@ -276,7 +204,7 @@ export function DetectionDashboard() {
                       ) : detectionData.isDistracted ? (
                         <div className="flex justify-between text-xs text-amber-400 font-bold animate-pulse"><span>DISTRACTION</span><span>{detectionData.distractionDirection.toUpperCase()}</span></div>
                       ) : (
-                        <div className="flex justify-between text-xs"><span className="text-muted-foreground">Head Pose</span><span className="font-mono font-semibold">{detectionData.headMovement.toFixed(0)}°</span></div>
+                        <div className="flex justify-between text-xs"><span className="text-muted-foreground">Head Pose</span><span className="font-mono font-semibold">{detectionData.headMovement.toFixed(0)}┬░</span></div>
                       )}
                       <div className="h-1.5 w-full overflow-hidden rounded-full bg-muted/50">
                         <div className={cn("h-full rounded-full transition-all duration-300", (detectionData.isDistracted || detectionData.isPhoneDetected) ? "metric-bar-danger" : "metric-bar-safe")}
@@ -299,53 +227,17 @@ export function DetectionDashboard() {
             <div className="container mx-auto flex max-w-7xl items-center justify-center gap-4">
               <AlertTriangle className="h-6 w-6 text-white animate-bounce" />
               <p className="text-base font-bold text-white tracking-wide">
-                {detectionData.alertReason === "Distracted Driving" ? "⚠️ DISTRACTION DETECTED — FOCUS ON ROAD"
-                  : detectionData.alertReason === "Using Mobile" ? "📱 DISTRACTION — USING MOBILE"
-                  : detectionData.alertReason === "Camera Blocked" ? "🚫 CAMERA BLOCKED"
-                  : detectionData.alertReason === "No Face Detected" ? "👤 NO FACE DETECTED"
-                  : detectionData.alertReason === "CARDIAC DISTRESS" ? "🚨 EMERGENCY: CARDIAC DISTRESS"
-                  : `😴 DROWSINESS DETECTED — PLEASE TAKE A BREAK`}
+                {detectionData.alertReason === "Distracted Driving" ? "ΓÜá DISTRACTION DETECTED ΓÇö FOCUS ON ROAD"
+                  : detectionData.alertReason === "Using Mobile" ? "≡ƒô▒ DISTRACTION ΓÇö USING MOBILE"
+                  : detectionData.alertReason === "Camera Blocked" ? "≡ƒÜ½ CAMERA BLOCKED"
+                  : detectionData.alertReason === "No Face Detected" ? "≡ƒæñ NO FACE DETECTED"
+                  : detectionData.alertReason === "CARDIAC DISTRESS" ? "≡ƒÜ¿ EMERGENCY: CARDIAC DISTRESS"
+                  : `≡ƒÿ┤ DROWSINESS DETECTED ΓÇö PLEASE TAKE A BREAK`}
               </p>
               <AlertTriangle className="h-6 w-6 text-white animate-bounce" />
             </div>
           </div>
         )}
-
-        {/* SOS Countdown Modal */}
-        <AnimatePresence>
-          {sosActive && (
-            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
-              className="fixed inset-0 z-[100] bg-background/80 backdrop-blur-md flex items-center justify-center p-4">
-              <motion.div initial={{ scale: 0.9, y: 20 }} animate={{ scale: 1, y: 0 }}
-                className="bg-card border border-red-500/50 rounded-2xl p-8 max-w-md w-full text-center shadow-2xl shadow-red-500/20">
-                <AlertTriangle className="h-16 w-16 text-red-500 mx-auto mb-4 animate-pulse" />
-                <h2 className="text-2xl font-black text-red-500 mb-2">CRITICAL FATIGUE DETECTED</h2>
-                <p className="text-muted-foreground mb-6">You appear to be completely asleep. Auto-SOS will be dispatched to <strong className="text-foreground">{emergencyContact}</strong> in...</p>
-                
-                <div className="text-8xl font-black text-red-500 mb-8 tabular-nums tracking-tighter">
-                  {sosCountdown}
-                </div>
-                
-                {sosCountdown > 0 ? (
-                  <Button size="lg" className="w-full bg-red-600 hover:bg-red-700 text-white h-14 text-lg font-bold transition-all hover:scale-105 active:scale-95"
-                    onClick={() => { setSosActive(false); sosDismissedAtRef.current = Date.now(); }}>
-                    CANCEL SOS (I AM AWAKE)
-                  </Button>
-                ) : (
-                  <div className="flex flex-col gap-3">
-                    <Button size="lg" disabled className="w-full bg-emerald-600 text-white h-14 text-lg font-bold opacity-100">
-                      <CheckCircle className="h-5 w-5 mr-2" /> SOS DISPATCHED
-                    </Button>
-                    <Button variant="outline" className="w-full h-12 text-muted-foreground border-border/50 hover:bg-muted"
-                      onClick={() => { setSosActive(false); sosDismissedAtRef.current = Date.now(); handleStop(); }}>
-                      Close & Stop Detection
-                    </Button>
-                  </div>
-                )}
-              </motion.div>
-            </motion.div>
-          )}
-        </AnimatePresence>
       </div>
 
       {lastSessionData && <SessionSummaryModal open={showSummary} onOpenChange={setShowSummary} sessionData={lastSessionData} />}

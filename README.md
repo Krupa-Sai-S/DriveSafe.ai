@@ -1,11 +1,7 @@
-# 🛡️ DriveSafe Vision AI
-### *Advanced Real-Time Driver Drowsiness Detection*
+# 🛡️ Aura Vision AI
+### *Next-Gen Real-Time Driver Monitoring*
 
-[![Vercel Deployment](https://img.shields.io/badge/Deployed%20on-Vercel-black?style=flat&logo=vercel)](https://drivesafevisionai.vercel.app/)
-[![Next.js](https://img.shields.io/badge/Next.js-15-blue?style=flat&logo=next.js)](https://nextjs.org/)
-[![MediaPipe](https://img.shields.io/badge/AI-MediaPipe-green?style=flat&logo=google-chrome)](https://developers.google.com/mediapipe)
-
-**DriveSafe Vision AI** is a state-of-the-art safety application designed to prevent road accidents caused by driver fatigue. Utilizing cutting-edge computer vision and AI, the platform monitors driver alertness in real-time and provides instant interventions.
+**Aura Vision AI** is a state-of-the-art safety application designed to prevent road accidents caused by driver fatigue. Utilizing cutting-edge computer vision and AI, the platform monitors driver alertness in real-time and provides instant interventions.
 
 ---
 
@@ -93,8 +89,8 @@ Distributed under the MIT License. See `LICENSE` for more information.
 
 ## 📧 Contact
 
-**Krupa Sai S** - [GitHub](https://github.com/Krupa-Sai-S)  
-**Project Link**: [https://github.com/Krupa-Sai-S/DriveSafeVision.ai](https://github.com/Krupa-Sai-S/DriveSafeVision.ai)
+**Visionary Developer** - [Project Hub](https://aura-vision-ai.vercel.app/)  
+**Project Link**: [https://github.com/AuraVisionAI/AuraVision](https://github.com/AuraVisionAI/AuraVision)
 
 ---
 *Developed with ❤️ to save lives on the road.*

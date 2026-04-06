@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import Link from "next/link";
 import {
@@ -25,7 +25,7 @@ const safetyFacts = [
   "Eye closure lasting >500ms is a strong indicator of drowsiness",
   "Yawning more than 3 times per minute is an early fatigue sign",
   "MediaPipe Face Mesh tracks 468 facial landmarks in real time",
-  "Aura Vision AI processes your camera feed entirely on your device",
+  "DriveSafe Vision AI processes your camera feed entirely on your device",
 ];
 
 const features = [
@@ -188,7 +188,7 @@ export function HomeContent() {
               <span className="relative inline-flex rounded-full h-2 w-2 bg-blue-400" />
             </span>
             <Activity className="h-3.5 w-3.5 group-hover:animate-pulse" />
-            Powered by MediaPipe AI • Live Detection
+            Powered by MediaPipe AI ┬╖ Live Detection
           </motion.div>
 
           {/* Headline with fixed-height cycling word */}
@@ -366,7 +366,7 @@ export function HomeContent() {
           {/* Connector line */}
           <div className="absolute top-12 left-[22%] right-[22%] h-px bg-gradient-to-r from-blue-400/10 via-blue-400/40 to-blue-400/10 hidden md:block pointer-events-none" />
           {[
-            { step: "01", icon: ShieldCheck, title: "Open Aura Vision AI", desc: "Launch in your browser. No downloads, no account required.", color: "text-blue-400", bg: "bg-blue-400/10 border-blue-400/20" },
+            { step: "01", icon: ShieldCheck, title: "Open DriveSafe Vision AI", desc: "Launch in your browser. No downloads, no account required.", color: "text-blue-400", bg: "bg-blue-400/10 border-blue-400/20" },
             { step: "02", icon: Video, title: "Enable Your Camera", desc: "Grant webcam access so MediaPipe can track your facial landmarks.", color: "text-cyan-400", bg: "bg-cyan-400/10 border-cyan-400/20" },
             { step: "03", icon: Shield, title: "Drive With Confidence", desc: "Receive instant audio and visual alerts if drowsiness is detected.", color: "text-emerald-400", bg: "bg-emerald-400/10 border-emerald-400/20" },
           ].map(({ step, icon: Icon, title, desc, color, bg }, i) => (
@@ -397,7 +397,7 @@ export function HomeContent() {
               <Lock className="h-3 w-3" /> Privacy First Architecture
             </div>
             <h2 className="text-2xl font-extrabold md:text-3xl mb-3">Your Data Never Leaves Your Device</h2>
-            <p className="text-muted-foreground max-w-md mx-auto text-sm">Aura Vision AI processes everything locally ΓÇö no servers, no cloud, no data collection.</p>
+            <p className="text-muted-foreground max-w-md mx-auto text-sm">DriveSafe Vision AI processes everything locally ΓÇö no servers, no cloud, no data collection.</p>
           </div>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-5">
             {trustItems.map(({ icon: Icon, label, desc, color }, i) => (

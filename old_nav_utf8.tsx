@@ -60,7 +60,7 @@ export function Navigation() {
               <ShieldCheck className="h-4 w-4 text-white" />
             </motion.div>
             <span className="text-lg font-bold tracking-tight group-hover:text-blue-400 transition-colors duration-300">
-              Aura <span className="text-blue-400">Vision AI</span>
+              DriveSafe <span className="text-blue-400">Vision AI</span>
             </span>
           </Link>
         </div>
@@ -70,7 +70,7 @@ export function Navigation() {
           <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-gradient-to-br from-blue-600 to-indigo-600">
             <ShieldCheck className="h-4 w-4 text-white" />
           </div>
-          <span className="text-base font-bold">Aura <span className="text-blue-400">Vision AI</span></span>
+          <span className="text-base font-bold">DriveSafe <span className="text-blue-400">Vision AI</span></span>
         </Link>
 
         {/* Center ΓÇö Desktop Nav */}
@@ -122,7 +122,7 @@ export function Navigation() {
                   <div className="flex h-8 w-8 items-center justify-center rounded-xl bg-gradient-to-br from-blue-600 to-indigo-600">
                     <ShieldCheck className="h-4 w-4 text-white" />
                   </div>
-                  <span>Aura <span className="text-blue-400">Vision AI</span></span>
+                  <span>DriveSafe <span className="text-blue-400">Vision AI</span></span>
                 </div>
                 <Button variant="ghost" size="icon" className="-mr-2 hover:bg-blue-500/10 hover:text-blue-400" onClick={() => setMobileMenuOpen(false)}>
                   <X className="h-5 w-5" />
